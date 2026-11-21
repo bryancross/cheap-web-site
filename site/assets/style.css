@@ -1,0 +1,81 @@
+/* Shared theme: night-sky palette taken from the electric-sheep article. */
+:root{
+  --bg:#090d18;--panel:#111a2b;--panel2:#172238;--ink:#edf2ff;--muted:#a9b6cf;
+  --cyan:#8de5e0;--violet:#c4a5ff;--gold:#ffd28a;--line:#2a3851;--pink:#ff9db5;
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{
+  margin:0;min-height:100vh;color:var(--ink);font:16px/1.65 var(--sans);
+  background:radial-gradient(ellipse at 50% -15%,#25345a 0%,#10182a 35%,var(--bg) 72%) no-repeat,var(--bg);
+}
+a{color:var(--cyan);text-underline-offset:3px}
+a:hover{color:#fff}
+.wrap{max-width:1080px;margin:auto;padding:0 24px}
+
+/* Starfield: two tiled layers of tiny dots drifting at different speeds. */
+.stars,.stars::after{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    radial-gradient(1px 1px at 20px 30px,#fff,transparent),
+    radial-gradient(1px 1px at 140px 90px,#ffffffcc,transparent),
+    radial-gradient(1.5px 1.5px at 260px 170px,#8de5e0,transparent),
+    radial-gradient(1px 1px at 330px 40px,#ffffffaa,transparent),
+    radial-gradient(1px 1px at 90px 220px,#c4a5ff,transparent),
+    radial-gradient(1px 1px at 210px 300px,#ffffff99,transparent);
+  background-size:380px 340px;opacity:.55;
+  animation:drift 240s linear infinite;
+}
+.stars::after{
+  content:"";background-size:520px 460px;opacity:.35;
+  animation-duration:420s;animation-direction:reverse;
+}
+@keyframes drift{to{background-position:380px 680px}}
+@media (prefers-reduced-motion:reduce){.stars,.stars::after{animation:none}}
+
+/* Home page */
+.home{position:relative;z-index:1}
+.hero{padding:110px 0 56px;max-width:760px}
+.eyebrow{letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);font-size:.76rem;font-weight:700}
+.hero h1{
+  font-family:var(--serif);font-weight:400;letter-spacing:-.04em;line-height:1.05;
+  font-size:clamp(2.6rem,7vw,5.4rem);margin:18px 0 20px;
+}
+.hero h1 em{color:var(--violet)}
+.tagline{font-size:clamp(1.05rem,2.2vw,1.25rem);color:#d4def2;margin:0;max-width:620px}
+
+.posts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;padding-bottom:90px}
+.post{
+  display:flex;flex-direction:column;gap:10px;padding:26px;border-radius:20px;
+  border:1px solid var(--line);color:inherit;text-decoration:none;
+  background:linear-gradient(145deg,#172238e8,#101827e8);
+  transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+}
+a.post:hover,a.post:focus-visible{
+  transform:translateY(-4px);border-color:var(--cyan);color:inherit;
+  box-shadow:0 14px 40px -18px #8de5e066,0 0 0 1px #8de5e033;outline:none;
+}
+.post .tag{
+  align-self:flex-start;border:1px solid #52627d;border-radius:99px;padding:3px 10px;
+  font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan);
+}
+.post h2{font:400 1.7rem/1.15 var(--serif);letter-spacing:-.02em;margin:4px 0 0;color:#fff}
+.post h2 em{color:var(--violet)}
+.post p{margin:0;color:#c2cde1}
+.post .meta{margin-top:auto;padding-top:8px;display:flex;justify-content:space-between;color:var(--muted);font-size:.85rem}
+.post .meta .go{color:var(--cyan);transition:transform .2s ease}
+a.post:hover .meta .go{transform:translateX(4px)}
+.post.soon{border-style:dashed;background:#0d1422aa;justify-content:center;align-items:center;text-align:center;min-height:220px}
+.post.soon p{color:var(--muted)}
+
+footer{position:relative;z-index:1;border-top:1px solid #ffffff17;padding:30px 0 50px;color:var(--muted);font-size:.85rem}
+
+@media (max-width:720px){
+  .wrap{padding:0 18px}
+  .hero{padding:72px 0 40px}
+  .posts{grid-template-columns:1fr}
+  .post.soon{min-height:140px}
+}
+@media (prefers-reduced-motion:reduce){.post,.post .meta .go{transition:none}a.post:hover{transform:none}}

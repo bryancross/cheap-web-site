@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090d18">
+<title>Do Androids Dream of Electric Sheep?</title>
+<style>
+:root{--bg:#090d18;--panel:#111a2b;--panel2:#172238;--ink:#edf2ff;--muted:#a9b6cf;--cyan:#8de5e0;--violet:#c4a5ff;--gold:#ffd28a;--line:#2a3851;--pink:#ff9db5}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#25345a 0%,#10182a 35%,var(--bg) 72%);color:var(--ink);font:16px/1.65 ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+a{color:var(--cyan);text-decoration-thickness:1px;text-underline-offset:3px}a:hover{color:#fff} .wrap{max-width:1080px;margin:auto;padding:0 24px}
+header{min-height:92vh;display:grid;place-items:center;text-align:center;padding:80px 0 70px;position:relative;overflow:hidden}
+header:before,header:after{content:"";position:absolute;border:1px solid #7182b333;border-radius:50%;width:520px;height:520px;left:50%;top:46%;transform:translate(-50%,-50%);box-shadow:0 0 100px #9d8cff12,inset 0 0 100px #9d8cff0c;pointer-events:none}
+header:after{width:740px;height:740px;border-style:dashed;opacity:.4;animation:spin 100s linear infinite}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.hero{position:relative;z-index:1;max-width:820px}.eyebrow{letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);font-size:.76rem;font-weight:700}
+h1{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.045em;line-height:1.04;font-size:clamp(3rem,8vw,6.8rem);margin:22px 0}
+h1 em{color:var(--violet);font-style:italic}.subtitle{font-size:clamp(1.05rem,2.4vw,1.35rem);color:#d4def2;max-width:680px;margin:0 auto 30px}
+.scroll{display:inline-flex;align-items:center;gap:10px;color:var(--muted);font-size:.9rem;margin-top:34px}
+.orbit{width:250px;height:160px;margin:26px auto 0;position:relative}
+.orbit svg{width:100%;height:100%;overflow:visible}
+main{padding-bottom:90px}.section{padding:76px 0;border-top:1px solid #ffffff12}.kicker{color:var(--cyan);text-transform:uppercase;letter-spacing:.18em;font-size:.75rem;font-weight:750}
+h2{font:400 clamp(2rem,4vw,3.4rem)/1.12 Georgia,serif;letter-spacing:-.025em;margin:10px 0 20px}
+h3{font-size:1.16rem;margin:0 0 8px;color:#fff}.lead{font-size:1.14rem;color:#d4def2;max-width:790px}
+p{color:#c2cde1;margin:0 0 16px}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:28px 0}
+.card{background:linear-gradient(145deg,#172238e8,#101827e8);border:1px solid var(--line);border-radius:18px;padding:22px}
+.card p:last-child{margin-bottom:0}.tag{display:inline-block;border:1px solid #52627d;border-radius:99px;padding:3px 10px;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px}
+.diagram{background:linear-gradient(180deg,#121d30,#0d1422);border:1px solid var(--line);border-radius:22px;padding:24px;margin:30px 0}
+.flow{display:grid;grid-template-columns:1fr 44px 1fr;gap:12px;align-items:stretch}
+.node{border:1px solid #40516e;background:#17243a;border-radius:15px;padding:18px;text-align:center}
+.node strong{display:block;color:#fff;font-size:1.02rem}.node small{color:var(--muted);display:block;margin-top:4px}
+.node.wake{border-color:#367b80;background:#102b35}.node.sleep{border-color:#715b9d;background:#211a38}
+.node.dream{border-color:#8a6c38;background:#302617;grid-column:1/-1;max-width:600px;width:100%;justify-self:center}
+.arrow{display:grid;place-items:center;color:var(--violet);font-size:1.5rem}
+.loop{display:flex;justify-content:center;gap:12px;align-items:center;color:var(--muted);font-size:.9rem;margin-top:16px;flex-wrap:wrap}
+.pill{border:1px solid var(--line);border-radius:99px;padding:5px 12px}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
+button{background:#1a2942;color:var(--ink);border:1px solid #52627d;border-radius:99px;padding:10px 16px;font:inherit;cursor:pointer}
+button[aria-pressed="true"]{background:#253c54;border-color:var(--cyan);box-shadow:0 0 0 2px #8de5e022}
+button:hover{border-color:var(--cyan)}
+.demo{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
+.demo-panel{border:1px solid var(--line);border-radius:18px;padding:22px;background:#111a2b}
+.demo-panel h3{display:flex;gap:10px;align-items:center}.dot{width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:0 0 15px var(--cyan)}
+.demo-panel.sleeping .dot{background:var(--violet);box-shadow:0 0 15px var(--violet)}
+.memory{margin-top:16px;padding:14px;border-radius:12px;background:#0b1220;border:1px dashed #53617c;color:#d9e2f4;min-height:95px}
+.memory b{color:var(--gold)}.steps{display:grid;gap:12px;margin-top:22px}
+.step{display:grid;grid-template-columns:42px 1fr;gap:14px;align-items:start}
+.num{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#24324b;color:var(--cyan);font-weight:700}
+.compare{width:100%;border-collapse:collapse;margin:25px 0;font-size:.95rem}
+.compare th,.compare td{padding:13px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.compare th{color:var(--cyan);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em}
+.callout{border-left:3px solid var(--gold);padding:4px 0 4px 18px;margin:26px 0;color:#e2d5b9}
+.note{font-size:.88rem;color:var(--muted)}
+.sources{display:grid;gap:12px;margin-top:24px}.source{padding:16px 18px;border:1px solid var(--line);border-radius:13px;background:#10192a}.source a{font-weight:650}.source p{font-size:.9rem;margin:5px 0 0}
+.back{display:inline-block;margin-bottom:18px;color:var(--muted);font-size:.85rem;text-decoration:none}.back:hover{color:var(--cyan)}
+footer{border-top:1px solid #ffffff17;padding:35px 0 55px;color:var(--muted);font-size:.85rem}
+@media(max-width:720px){.grid,.demo{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg);height:20px}.node.dream{grid-column:auto}.wrap{padding:0 18px}.section{padding:56px 0}.compare{font-size:.84rem}.compare th,.compare td{padding:10px 8px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+ <div class="wrap hero">
+  <a class="back" href="../">&larr; All posts</a>
+  <div class="eyebrow">Memory · imagination · machine intelligence</div>
+  <h1>Do androids<br><em>dream of electric sheep?</em></h1>
+  <p class="subtitle">What happens when an AI stops being a frozen model and starts learning from its own experience? A journey through dreaming, memory consolidation, and the brain-inspired architectures trying to make it possible.</p>
+  <div class="orbit" aria-hidden="true">
+   <svg viewBox="0 0 250 160" fill="none">
+    <ellipse cx="125" cy="80" rx="112" ry="38" stroke="#8de5e0" stroke-opacity=".55"/>
+    <ellipse cx="125" cy="80" rx="78" ry="65" stroke="#c4a5ff" stroke-opacity=".48" transform="rotate(-35 125 80)"/>
+    <circle cx="125" cy="80" r="21" fill="#c4a5ff" fill-opacity=".2" stroke="#c4a5ff"/>
+    <circle cx="125" cy="80" r="7" fill="#edf2ff"/>
+    <circle cx="26" cy="80" r="5" fill="#8de5e0"/><circle cx="183" cy="28" r="4" fill="#ffd28a"/>
+    <circle cx="184" cy="132" r="4" fill="#ff9db5"/>
+   </svg>
+  </div>
+  <a class="scroll" href="#question">↓ &nbsp; Explore the idea</a>
+ </div>
+</header>
+<main class="wrap">
+<section class="section" id="question">
+ <div class="kicker">01 / The question</div>
+ <h2>What if intelligence needs a night shift?</h2>
+ <p class="lead">Today's most capable language models are largely trained, deployed, and then held still. They can use context, tools, and external memory, but their core learned parameters usually don't change with every conversation.</p>
+ <p>Biological intelligence works differently. We learn while awake, but learning doesn't stop when experience ends. During sleep, the brain reactivates and reorganizes patterns of activity, stabilizes some memories, and integrates new experiences with older knowledge. Dreaming may be one part of this rich offline activity—though its exact functions remain debated.</p>
+ <div class="callout">The useful analogy isn't that an AI literally dreams. It's that a learning system might need protected periods for replay, recombination, evaluation, and long-term change.</div>
+</section>
+<section class="section">
+ <div class="kicker">02 / A brain's division of labor</div>
+ <h2>Fast memories. Slow knowledge.</h2>
+ <p class="lead">One influential neuroscience idea is the <b>Complementary Learning Systems</b> theory. It proposes that the hippocampus and neocortex play different, cooperating roles in learning.</p>
+ <div class="grid">
+  <article class="card"><span class="tag">Fast system</span><h3>Hippocampus</h3><p>Rapidly encodes particular episodes: what happened, where, and in what context. It can capture a new experience without immediately rewriting the brain's entire store of knowledge.</p></article>
+  <article class="card"><span class="tag">Slow system</span><h3>Neocortex</h3><p>Gradually extracts regularities across many experiences. It builds durable, generalized knowledge—less like remembering one conversation and more like learning a principle.</p></article>
+ </div>
+ <p>Sleep-related replay is one proposed bridge between the two: recently formed traces are reactivated and can influence longer-term cortical representations. The details are an active area of neuroscience, not a completely settled story.</p>
+</section>
+<section class="section">
+ <div class="kicker">03 / The machine analogy</div>
+ <h2>From waking experience to lasting change</h2>
+ <p>Imagine an AI system with a fast, temporary record of what it encounters, plus a slower process that decides what should become durable knowledge. During an offline phase, it can replay selected experiences, generate variations, test them, and update parts of itself.</p>
+ <div class="diagram">
+  <div class="flow">
+   <div class="node wake"><strong>WAKE · Interact</strong><small>Take in new information and solve real tasks</small></div>
+   <div class="arrow">⇄</div>
+   <div class="node sleep"><strong>SLEEP · Consolidate</strong><small>Review, compress, evaluate and update</small></div>
+   <div class="node dream"><strong>DREAM · Generate & test</strong><small>Recombine knowledge, create synthetic practice, explore alternative routes</small></div>
+  </div>
+  <div class="loop"><span class="pill">Short-term traces</span> → <span class="pill">Selected learning</span> → <span class="pill">Updated long-term model</span> ↺</div>
+ </div>
+ <p class="note">This is a conceptual diagram, not a literal map of either the brain or one production AI system.</p>
+ <h3>Try the thought experiment</h3>
+ <p>Switch between the two phases to see how the same experience might be handled differently.</p>
+ <div class="controls" role="group" aria-label="Choose AI phase">
+  <button id="wakeBtn" aria-pressed="true">☀ Wake phase</button>
+  <button id="sleepBtn" aria-pressed="false">☾ Sleep / dream phase</button>
+ </div>
+ <div class="demo">
+  <div class="demo-panel" id="phasePanel">
+   <h3><span class="dot"></span><span id="phaseTitle">Wake: experience arrives</span></h3>
+   <p id="phaseText">An AI assistant helps debug a production incident. It notices that a particular configuration change caused a timeout.</p>
+   <div class="memory" id="phaseMemory"><b>Temporary trace</b><br>“In service A, raising the connection pool limit resolved this timeout.”</div>
+  </div>
+  <div class="demo-panel sleeping">
+   <h3><span class="dot"></span>What might happen next?</h3>
+   <p id="nextText">The experience is recorded with its context and outcome. It has not necessarily changed the model's underlying parameters.</p>
+   <div class="memory" id="nextMemory">Fast memory can preserve the episode for later review. The model can still use it while the relevant context or memory is available.</div>
+  </div>
+ </div>
+</section>
+<section class="section">
+ <div class="kicker">04 / The emerging research</div>
+ <h2>Architectures that rhyme with biology</h2>
+ <div class="steps">
+  <div class="step"><div class="num">1</div><div><h3>Google's Sleep Framework (2026)</h3><p>Google Research describes alternating active and offline phases. During “sleep,” the system consolidates short-term context into expanded model parameters and generates synthetic “dream” examples by recombining expert pathways, then filters and trains on useful samples. This is a research framework—not evidence that a deployed Gemini model literally sleeps or continuously rewrites itself in production.</p></div></div>
+  <div class="step"><div class="num">2</div><div><h3>Nested Learning & HOPE (2025)</h3><p>Google's Nested Learning treats a model as interacting learning processes with different update rates. Its HOPE proof-of-concept explores self-modifying recurrent memory mechanisms. The broader idea resembles biological plasticity across multiple timescales.</p></div></div>
+  <div class="step"><div class="num">3</div><div><h3>Predictive coding</h3><p>In predictive-coding theories, higher levels predict what lower levels should receive; mismatches—or prediction errors—flow back through the hierarchy. AI researchers study networks that learn through these iterative feedback loops rather than relying only on conventional backpropagation.</p></div></div>
+  <div class="step"><div class="num">4</div><div><h3>Spiking neural networks</h3><p>These models represent signals as discrete events, or spikes, inspired by biological neurons. They are closer to neural signaling than ordinary artificial networks, and researchers are exploring how to combine them with predictive coding and energy-efficient neuromorphic hardware.</p></div></div>
+ </div>
+</section>
+<section class="section">
+ <div class="kicker">05 / What is and isn't the same</div>
+ <h2>An analogy, not an artificial brain</h2>
+ <table class="compare">
+  <thead><tr><th>Biology</th><th>Possible AI counterpart</th><th>Important difference</th></tr></thead>
+  <tbody>
+   <tr><td>Hippocampal episodic memory</td><td>Fast context or episodic store</td><td>AI memory is engineered data structures and learned representations, not living tissue.</td></tr>
+   <tr><td>Sleep consolidation</td><td>Offline replay, distillation and parameter updates</td><td>Training procedures are designed by people; sleep is a biological process with many functions.</td></tr>
+   <tr><td>Dream imagery and association</td><td>Synthetic examples and recombination</td><td>Generated training data is not evidence of subjective experience or consciousness.</td></tr>
+   <tr><td>Synaptic plasticity</td><td>Weight updates, adapters or local learning rules</td><td>Artificial parameters are not synapses, even when the mathematics has parallels.</td></tr>
+  </tbody>
+ </table>
+ <div class="callout">The biggest open challenge is not generating “dreams.” It's deciding which experiences deserve to change a model, making those changes without erasing old capabilities, and proving that the system genuinely improved.</div>
+</section>
+<section class="section">
+ <div class="kicker">06 / The bigger possibility</div>
+ <h2>Not one giant frozen mind, but a system that grows</h2>
+ <p class="lead">A future AI might combine a powerful language model with specialized memory systems, predictive world models, fast adaptation, slower consolidation, and offline self-generated practice.</p>
+ <p>It could learn from experience without treating every interaction as a reason to rewrite its entire brain. It could preserve individual episodes, extract patterns across them, and rehearse what it still doesn't understand.</p>
+ <p>That would be a meaningful shift: from a model that is trained once and queried many times, toward an engineered learning system with a lifecycle.</p>
+ <p class="note">It would not automatically make the system conscious, sentient, or human-like. Learning, memory, dreaming, and subjective experience are different questions.</p>
+</section>
+<section class="section">
+ <div class="kicker">Further reading</div>
+ <h2>Follow the research</h2>
+ <div class="sources">
+  <div class="source"><a href="https://research.google/blog/the-sleep-framework-a-new-way-for-llms-to-retain-knowledge-in-continual-learning/" target="_blank" rel="noopener">The Sleep Framework — Google Research (October 27, 2026) ↗</a><p>The direct inspiration for the wake / consolidation / dreaming analogy.</p></div>
+  <div class="source"><a href="https://research.google/blog/introducing-nested-learning-a-new-ml-paradigm-for-continual-learning/" target="_blank" rel="noopener">Introducing Nested Learning — Google Research (November 7, 2025) ↗</a><p>Multi-timescale learning and the HOPE proof-of-concept.</p></div>
+  <div class="source"><a href="https://www.nature.com/articles/s41467-025-56405-9" target="_blank" rel="noopener">Hybrid neural networks inspired by corticohippocampal circuits — Nature Communications (2025) ↗</a><p>A biologically inspired approach to rapid learning and memory stability.</p></div>
+  <div class="source"><a href="https://doi.org/10.1145/3797870" target="_blank" rel="noopener">Predictive Coding Networks and Inference Learning — ACM Computing Surveys (2026) ↗</a><p>A survey of hierarchical prediction, feedback, and alternative learning rules.</p></div>
+  <div class="source"><a href="https://pubmed.ncbi.nlm.nih.gov/41353901/" target="_blank" rel="noopener">Predictive coding with spiking neural networks: A survey — Neural Networks (2026) ↗</a><p>How predictive processing can be explored with neuron-like spike signals.</p></div>
+ </div>
+</section>
+</main>
+<footer><div class="wrap">An exploration of brain-inspired AI · Prepared as a conversation starter, not a claim that machines dream or that neuroscience has a single settled theory of sleep.</div></footer>
+<script>
+const wakeBtn=document.getElementById('wakeBtn'),sleepBtn=document.getElementById('sleepBtn');
+const title=document.getElementById('phaseTitle'),txt=document.getElementById('phaseText'),mem=document.getElementById('phaseMemory'),next=document.getElementById('nextText'),nextMem=document.getElementById('nextMemory'),panel=document.getElementById('phasePanel');
+function setPhase(sleep){
+ wakeBtn.setAttribute('aria-pressed',String(!sleep));sleepBtn.setAttribute('aria-pressed',String(sleep));
+ panel.classList.toggle('sleeping',sleep);
+ if(sleep){
+  title.textContent='Sleep: replay and recombine';
+  txt.textContent='Offline, the system revisits selected incidents, compares outcomes, and generates variations to test whether a broader lesson can be learned.';
+  mem.innerHTML='<b>Replay sample</b><br>“Did the connection-pool fix work only in service A, or does it reveal a reusable diagnostic pattern?”';
+  next.textContent='Candidate lesson: pool exhaustion can produce timeouts. The system tests this against other traces and synthetic cases before accepting the generalization.';
+  nextMem.textContent='If the evidence is strong, a training update or memory consolidation step may preserve the lesson beyond the original conversation.';
+ }else{
+  title.textContent='Wake: experience arrives';
+  txt.textContent='An AI assistant helps debug a production incident. It notices that a particular configuration change caused a timeout.';
+  mem.innerHTML='<b>Temporary trace</b><br>“In service A, raising the connection pool limit resolved this timeout.”';
+  next.textContent='The experience is recorded with its context and outcome. It has not necessarily changed the model\\'s underlying parameters.';
+  nextMem.textContent='Fast memory can preserve the episode for later review. The model can still use it while the relevant context or memory is available.';
+ }
+}
+wakeBtn.addEventListener('click',()=>setPhase(false));sleepBtn.addEventListener('click',()=>setPhase(true));
+</script>
+</body>
+</html>
